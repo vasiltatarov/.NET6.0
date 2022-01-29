@@ -1,4 +1,4 @@
-﻿namespace MinimalApiDemo.Api.Models;
+﻿namespace MinimalApiDemo.Api.Data.Models;
 
 public record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
 {
