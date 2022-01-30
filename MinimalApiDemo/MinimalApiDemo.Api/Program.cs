@@ -38,7 +38,7 @@ app.MapGet("/pornstars", (IPornStarService pornStarService) =>
 })
 .WithName("GetPornStars");
 
-app.MapGet("/pornstar/{id}", (int id, IPornStarService pornStarService) =>
+app.MapGet("/pornstars/{id}", (int id, IPornStarService pornStarService) =>
 {
     var pornStar = pornStarService.GetPornStarById(id);
 
