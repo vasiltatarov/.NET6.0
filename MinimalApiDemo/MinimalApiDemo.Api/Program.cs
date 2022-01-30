@@ -3,6 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IPersonService, PersonService>();
 builder.Services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddTransient<IPornStarService, PornStarService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,5 +31,24 @@ app.MapGet("/persons", (IPersonService personService) =>
     return personService.GetPersons();
 })
 .WithName("GetPersons");
+
+app.MapGet("/pornstars", (IPornStarService pornStarService) =>
+{
+    return pornStarService.GetPornStars();
+})
+.WithName("GetPornStars");
+
+app.MapGet("/pornstar/{id}", (int id, IPornStarService pornStarService) =>
+{
+    var pornStar = pornStarService.GetPornStarById(id);
+
+    if (pornStar == null)
+    {
+        return Results.NotFound("Porn Star with given id does not exist.");
+    }
+
+    return Results.Ok(pornStar);
+})
+.WithName("GetPornStarById");
 
 app.Run();
