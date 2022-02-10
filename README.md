@@ -1,4 +1,3 @@
-# .NET6.0 Minimal APIs
+# .NET6.0
 
-## ToDo
-* Add Database (SQL)
+## MinimalApiDemo - ASP.NET Core Web API (Minimal API)
