@@ -1,10 +1,5 @@
 ﻿namespace SuperHeroApi.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using SuperHeroApi.Data;
-    using SuperHeroApi.Models;
-
     [ApiController]
     [Route("[controller]")]
     public class SuperHeroController : ControllerBase
