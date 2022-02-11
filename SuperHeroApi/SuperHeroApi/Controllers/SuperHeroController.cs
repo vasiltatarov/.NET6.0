@@ -1,6 +1,8 @@
 ﻿namespace SuperHeroApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using SuperHeroApi.Data;
     using SuperHeroApi.Models;
 
     [ApiController]
@@ -22,17 +24,23 @@
                 Place = "Chakalo"
             },
         };
+        private readonly DataContext context;
+
+        public SuperHeroController(DataContext context)
+        {
+            this.context = context;
+        }
 
         [HttpGet(Name = "GetSuperHeroes")]
         public async Task<ActionResult<List<SuperHero>>> Get()
         {
-            return Ok(heroes);
+            return Ok(await this.context.SuperHeroes.ToListAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SuperHero>> GetById(int id)
         {
-            var hero = heroes.FirstOrDefault(x => x.Id == id);
+            var hero = await this.context.SuperHeroes.FindAsync(id);
 
             if (hero == null)
             {
@@ -43,17 +51,18 @@
         }
 
         [HttpPost(Name = "AddHero")]
-        public async Task<ActionResult<int>> AddHero(SuperHero hero)
+        public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
         {
-            heroes.Add(hero);
+            await this.context.SuperHeroes.AddAsync(hero);
+            await this.context.SaveChangesAsync();
 
-            return Ok(hero.Id);
+            return Ok(await this.context.SuperHeroes.ToListAsync());
         }
 
         [HttpPut]
         public async Task<ActionResult<SuperHero>> UpdateHero(SuperHero request)
         {
-            var hero = heroes.FirstOrDefault(x => x.Id == request.Id);
+            var hero = await this.context.SuperHeroes.FindAsync(request.Id);
 
             if (hero == null)
             {
@@ -65,22 +74,25 @@
             hero.FirstName = request.FirstName;
             hero.LastName = request.LastName;
 
-            return Ok(hero);
+            await this.context.SaveChangesAsync();
+
+            return Ok(await this.context.SuperHeroes.ToListAsync());
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<SuperHero>>> DeleteHero(int id)
         {
-            var hero = heroes.FirstOrDefault(x => x.Id == id);
+            var hero = await this.context.SuperHeroes.FindAsync(id);
 
             if (hero == null)
             {
                 return BadRequest("Hero not found.");
             }
 
-            heroes.Remove(hero);
+            this.context.Remove(hero);
+            await this.context.SaveChangesAsync();
 
-            return Ok(heroes);
+            return Ok(await this.context.SuperHeroes.ToListAsync());
         }
     }
 }
