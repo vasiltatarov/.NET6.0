@@ -15,9 +15,29 @@
 
         hubConnection.On<string, string>("GetThatMessageDude", (user, message) =>
         {
-            var msg = $"{string.IsNullOrEmpty()}";
+            var msg = $"{(string.IsNullOrWhiteSpace(user) ? "" : user + ": ")} {message}";
+            messages += msg + "\n";
+            StateHasChanged();
         });
 
-            await hubConnection.StartAsync();
+        await hubConnection.StartAsync();
+    }
+
+    private async Task Send()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.SendAsync("AddMessageToChat");
+        }
+    }
+
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.DisposeAsync();
+        }
     }
 }
