@@ -1,9 +1,7 @@
 ﻿namespace VerifyEmailForgotPasswordDemo.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-
     [ApiController]
-    [Route("controller")]
+    [Route("api/[controller]")]
     public class ApiController : ControllerBase
     {
     }

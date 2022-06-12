@@ -1,3 +1,6 @@
-﻿global using Microsoft.EntityFrameworkCore;
-global using VerifyEmailForgotPasswordDemo.Models;
+﻿global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+
 global using VerifyEmailForgotPasswordDemo.Data;
+global using VerifyEmailForgotPasswordDemo.Data.Models;
+global using VerifyEmailForgotPasswordDemo.Models;

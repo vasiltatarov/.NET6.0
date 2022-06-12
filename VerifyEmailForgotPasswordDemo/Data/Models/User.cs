@@ -1,4 +1,4 @@
-﻿namespace VerifyEmailForgotPasswordDemo.Models
+﻿namespace VerifyEmailForgotPasswordDemo.Data.Models
 {
     public class User
     {
