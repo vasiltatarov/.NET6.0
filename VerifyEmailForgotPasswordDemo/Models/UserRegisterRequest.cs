@@ -1,7 +1,5 @@
 ﻿namespace VerifyEmailForgotPasswordDemo.Models
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class UserRegisterRequest
     {
         [Required]
