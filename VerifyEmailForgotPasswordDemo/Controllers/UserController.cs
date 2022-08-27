@@ -66,6 +66,22 @@
             return Ok($"Welcome back, {user.Email}");
         }
 
+        [HttpPost("verify")]
+        public async Task<IActionResult> Verify(string token)
+        {
+            var user = await this.context.Users.FirstOrDefaultAsync(x => x.VerificationToken == token);
+
+            if (user == null)
+            {
+                return BadRequest("Invalid Token");
+            }
+
+            user.VerifiedAt = DateTime.Now;
+            await this.context.SaveChangesAsync();
+
+            return Ok("User verified!");
+        }
+
         private string CreateRandomToken()
             => Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
 
