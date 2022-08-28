@@ -1,6 +1,8 @@
 ﻿namespace VerifyEmailForgotPasswordDemo.Controllers
 {
     using System.Security.Cryptography;
+    using static UsersMessages;
+    using static EndPoints;
 
     public class UserController : ApiController
     {
@@ -9,7 +11,7 @@
         public UserController(DataContext context)
             => this.context = context;
 
-        [HttpPost("register")]
+        [HttpPost(RegisterEndPoint)]
         public async Task<IActionResult> Register(UserRegisterRequest request)
         {
             if (!ModelState.IsValid)
@@ -19,7 +21,7 @@
 
             if (this.context.Users.Any(x => x.Email == request.Email))
             {
-                return BadRequest("User with given email is already exist!");
+                return BadRequest(EmailAlreadyExist);
             }
 
             this.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -35,10 +37,10 @@
             await this.context.Users.AddAsync(user);
             await this.context.SaveChangesAsync();
 
-            return Ok("User successfully created!");
+            return Ok(UserCreated);
         }
 
-        [HttpPost("login")]
+        [HttpPost(LoginEndPoint)]
         public async Task<IActionResult> Login(UserLoginRequest request)
         {
             if (!ModelState.IsValid)
@@ -50,63 +52,63 @@
 
             if (user == null)
             {
-                return BadRequest("User not found.");
+                return BadRequest(UserNotFound);
             }
 
             if (!this.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return BadRequest("Password is incorrect.");
+                return BadRequest(IncorrectPassword);
             }
 
             if (user.VerifiedAt == null)
             {
-                return BadRequest("Not verified!");
+                return BadRequest(NotVerified);
             }
 
-            return Ok($"Welcome back, {user.Email}");
+            return Ok(string.Format(WelcomeBack, user.Email));
         }
 
-        [HttpPost("verify")]
+        [HttpPost(VerifyEndPoint)]
         public async Task<IActionResult> Verify(string token)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(x => x.VerificationToken == token);
 
             if (user == null)
             {
-                return BadRequest("Invalid Token");
+                return BadRequest(InvalidToken);
             }
 
             user.VerifiedAt = DateTime.Now;
             await this.context.SaveChangesAsync();
 
-            return Ok("User verified!");
+            return Ok(UserVerified);
         }
 
-        [HttpPost("forgot-password")]
+        [HttpPost(ForgotPasswordEndPoint)]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
             if (user == null)
             {
-                return BadRequest("User not found.");
+                return BadRequest(UserNotFound);
             }
 
             user.PasswordResetToken = CreateRandomToken();
             user.ResetTokenExpires = DateTime.Now.AddDays(1);
             await this.context.SaveChangesAsync();
 
-            return Ok("You may now reset your password.");
+            return Ok(YouMayResetYourPassword);
         }
 
-        [HttpPost("reset-password")]
+        [HttpPost(ResetPasswordEndPoint)]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(x => x.PasswordResetToken == request.Token);
 
             if (user == null || user.ResetTokenExpires < DateTime.Now)
             {
-                return BadRequest("Invalid Token.");
+                return BadRequest(InvalidToken);
             }
 
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -118,7 +120,7 @@
 
             await this.context.SaveChangesAsync();
 
-            return Ok("Paswword successfully reset.");
+            return Ok(ResetPasswordSuccessfully);
         }
 
         private string CreateRandomToken()
