@@ -1,5 +1,8 @@
-﻿namespace VerifyEmailForgotPasswordDemo.Data
+﻿namespace VerifyEmailForgotPasswordDemo.Data.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using VerifyEmailForgotPasswordDemo.Data.Data.Models;
+
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)

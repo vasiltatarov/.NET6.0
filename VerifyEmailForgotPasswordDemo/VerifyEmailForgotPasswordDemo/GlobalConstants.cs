@@ -1,11 +1,11 @@
-﻿global using System.ComponentModel.DataAnnotations;
-
-global using Microsoft.AspNetCore.Mvc;
+﻿global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 
-global using VerifyEmailForgotPasswordDemo.Data;
-global using VerifyEmailForgotPasswordDemo.Data.Models;
-global using VerifyEmailForgotPasswordDemo.Models;
+global using VerifyEmailForgotPasswordDemo.Data.Data;
+
+global using VerifyEmailForgotPasswordDemo.Services;
+global using VerifyEmailForgotPasswordDemo.Services.Models;
+global using VerifyEmailForgotPasswordDemo.Services.Interfaces;
 
 public static class EndPoints
 {

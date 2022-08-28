@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VerifyEmailForgotPasswordDemo.Migrations
+namespace VerifyEmailForgotPasswordDemo.Data.Migrations
 {
     public partial class Initial : Migration
     {

@@ -1,5 +1,7 @@
-﻿namespace VerifyEmailForgotPasswordDemo.Models
+﻿namespace VerifyEmailForgotPasswordDemo.Services.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ResetPasswordRequest
     {
         [Required]

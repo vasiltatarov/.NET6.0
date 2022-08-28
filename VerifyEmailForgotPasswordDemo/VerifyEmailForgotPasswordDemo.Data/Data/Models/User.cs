@@ -1,5 +1,7 @@
-﻿namespace VerifyEmailForgotPasswordDemo.Data.Models
+﻿namespace VerifyEmailForgotPasswordDemo.Data.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class User
     {
         [Key]

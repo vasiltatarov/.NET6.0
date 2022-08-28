@@ -6,7 +6,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>()
+    .AddTransient<IUsersService, UsersService>();
 
 var app = builder.Build();
 
