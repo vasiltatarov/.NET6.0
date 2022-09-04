@@ -1,4 +1,4 @@
-﻿namespace Travel.Web.Data
+﻿namespace Travel.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
