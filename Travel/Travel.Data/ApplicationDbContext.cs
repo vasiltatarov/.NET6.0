@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Travel.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -9,5 +10,7 @@
             : base(options)
         {
         }
+
+        public DbSet<TravelEntity> Travels { get; set; }
     }
 }
