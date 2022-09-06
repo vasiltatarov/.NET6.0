@@ -33,5 +33,7 @@
         public virtual IdentityUser User { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,0 +1,9 @@
+﻿@model TravelsViewModel
+
+<div>
+    @foreach (var travel in Model.Travels)
+    {
+        <h1>Destination: @travel.Destination</h1>
+        <h2>Participants: @travel.Participants</h2>
+    }
+</div>
