@@ -20,5 +20,22 @@
 
             return View(vm);
         }
+
+        public IActionResult AddTravel()
+        {
+            return View(new AddTravelViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddTravel(AddTravelViewModel request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("AllTravels");
+        }
     }
 }

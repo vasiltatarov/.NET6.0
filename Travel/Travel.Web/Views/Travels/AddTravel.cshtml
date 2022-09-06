@@ -1,0 +1,14 @@
+﻿@model AddTravelViewModel
+
+<form asp-controller="Travels" asp-action="AddTravel" method="post">
+  <div class="form-group">
+    <label asp-for="@Model.Destination">Destination</label>
+    <input asp-for="@Model.Destination" class="form-control" placeholder="Enter Destination">
+    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label asp-for="@Model.Participants">Participants</label>
+    <input asp-for="@Model.Participants" class="form-control" placeholder="Enter Participants">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
