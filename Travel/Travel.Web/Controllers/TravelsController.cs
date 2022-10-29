@@ -13,10 +13,12 @@
         public TravelsController(ITravelService travelService)
             => this.travelService = travelService;
 
-        public async Task<IActionResult> AllTravels()
+        public async Task<IActionResult> Index()
         {
-            var vm = new TravelsViewModel();
-            vm.Travels = await this.travelService.GetTravelsAsync();
+            var vm = new TravelsViewModel
+            {
+                Travels = await this.travelService.GetTravelsAsync()
+            };
 
             return View(vm);
         }
@@ -35,7 +37,7 @@
                 return BadRequest();
             }
 
-            return RedirectToAction("AllTravels");
+            return RedirectToAction("Index");
         }
     }
 }
