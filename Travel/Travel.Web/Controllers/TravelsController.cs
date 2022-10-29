@@ -23,19 +23,19 @@
             return View(vm);
         }
 
-        public IActionResult AddTravel()
-        {
-            return View(new AddTravelViewModel());
-        }
+        public IActionResult Create()
+            => View(new CreateTravelViewModel());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddTravel(AddTravelViewModel request)
+        public IActionResult Create(CreateTravelViewModel request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+
+            // Create Travel
 
             return RedirectToAction("Index");
         }

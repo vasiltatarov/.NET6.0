@@ -1,0 +1,46 @@
+﻿@model CreateTravelViewModel
+
+<div class="col-12 col-md-6 offset-md-2">
+    <form asp-controller="Travels" asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="@Model.Destination">Destination</label>
+            <input asp-for="@Model.Destination" class="form-control" placeholder="Enter Destination">
+            <span asp-validation-for="@Model.Destination" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Participants">Participants</label>
+            <input asp-for="@Model.Participants" class="form-control" placeholder="Enter Participants">
+            <span asp-validation-for="@Model.Participants" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.ImageUrl">Image Url</label>
+            <input asp-for="@Model.ImageUrl" class="form-control" placeholder="Enter Image Url">
+            <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Description">Description</label>
+            <input asp-for="@Model.Description" class="form-control" placeholder="Enter Description">
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Accommodation">Accommodation</label>
+            <input asp-for="@Model.Accommodation" class="form-control" placeholder="Enter Accommodation">
+            <span asp-validation-for="@Model.Accommodation" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.StartDate">Date of Adventure</label>
+            <input asp-for="@Model.StartDate" class="form-control" placeholder="Enter Date" min="@DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd")">
+            <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.EndDate">End Date of Adventure</label>
+            <input asp-for="@Model.EndDate" class="form-control" placeholder="Enter Date">
+            <span asp-validation-for="@Model.EndDate" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,19 +1,11 @@
-﻿namespace Travel.Data.Models
+﻿namespace Travel.Web.Models.Travels
 {
-    using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
 
-    public class TravelEntity
+    public class CreateTravelViewModel
     {
-        public TravelEntity()
-        {
-            this.CreatedOn = DateTime.Now;
-        }
-
-        [Key]
-        public int Id { get; set; }
-
         [Required]
+        [MinLength(5, ErrorMessage = "Destination must be minimum 5 characters length!")]
         [MaxLength(100)]
         public string Destination { get; set; }
 
@@ -33,14 +25,5 @@
         public DateTime StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
-
-        public virtual IdentityUser User { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

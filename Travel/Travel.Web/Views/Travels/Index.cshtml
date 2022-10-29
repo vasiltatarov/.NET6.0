@@ -1,11 +1,33 @@
 ﻿@model TravelsViewModel
+@{
+    var count = 1;
+}
 
-<a asp-controller="Travels" asp-action="AddTravel" class="btn btn-primary">Add Travel</a>
+<a asp-controller="Travels" asp-action="Create" class="btn btn-primary">Create Travel</a>
 
-<div>
-    @foreach (var travel in Model.Travels)
-    {
-        <h1>Destination: @travel.Destination</h1>
-        <h2>Participants: @travel.Participants</h2>
-    }
-</div>
+<table class="table table-hover mt-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Participants</th>
+            <th scope="col">Description</th>
+            <th scope="col">Accommodation</th>
+            <th scope="col">StartDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var travel in Model.Travels)
+        {
+            <tr>
+                <th scope="row">@count</th>
+                <td>@travel.Destination</td>
+                <td>@travel.Participants</td>
+                <td>@travel.Description</td>
+                <td>@travel.Accommodation</td>
+                <td>@travel.StartDate.ToShortDateString()</td>
+            </tr>
+            count = count + 1;
+        }
+    </tbody>
+</table>
