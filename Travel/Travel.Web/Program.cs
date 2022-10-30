@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Travel.Data;
 using Travel.Services;
 using Travel.Services.Interfaces;
+using Travel.Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +20,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = false;
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ITravelService, TravelService>();
 
 var app = builder.Build();
+
+app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
