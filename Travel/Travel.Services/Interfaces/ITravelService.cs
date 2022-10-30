@@ -5,5 +5,7 @@
     public interface ITravelService
     {
         Task<IEnumerable<TravelDto>> GetTravelsAsync();
+
+        Task Create(CreateTravelRequestModel travelDto);
     }
 }

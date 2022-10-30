@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Travel.Services.Dtos;
     using Travel.Services.Interfaces;
     using Travel.Web.Models.Travels;
 
@@ -35,7 +36,10 @@
                 return BadRequest();
             }
 
-            // Create Travel
+            this.travelService.Create(new CreateTravelRequestModel
+            {
+                //TODO
+            });
 
             return RedirectToAction("Index");
         }
