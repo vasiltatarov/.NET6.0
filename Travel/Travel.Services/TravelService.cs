@@ -6,22 +6,24 @@
     using Travel.Data.Models;
     using Travel.Services.Dtos;
     using Travel.Services.Interfaces;
+    using AutoMapper;
 
     public class TravelService : ITravelService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IMapper mapper;
 
-        public TravelService(ApplicationDbContext dbContext)
-            => this.dbContext = dbContext;
-
-        public async Task Create(CreateTravelRequestModel travelDto)
+        public TravelService(ApplicationDbContext dbContext, IMapper mapper)
         {
-            var entity = new TravelEntity
-            {
-                //TODO
-            };
+            this.dbContext = dbContext;
+            this.mapper = mapper;
+        }
 
-            await this.dbContext.AddAsync(entity);
+        public async Task Create(CreateTravelRequestModel request)
+        {
+            var entity = this.mapper.Map<TravelEntity>(request);
+
+            await this.dbContext.Travels.AddAsync(entity);
             await this.dbContext.SaveChangesAsync();
         }
 

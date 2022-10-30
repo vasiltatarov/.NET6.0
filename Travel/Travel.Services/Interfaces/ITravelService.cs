@@ -6,6 +6,6 @@
     {
         Task<IEnumerable<TravelDto>> GetTravelsAsync();
 
-        Task Create(CreateTravelRequestModel travelDto);
+        Task Create(CreateTravelRequestModel request);
     }
 }

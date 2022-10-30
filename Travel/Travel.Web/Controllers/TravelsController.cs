@@ -1,7 +1,9 @@
 ﻿namespace Travel.Web.Controllers
 {
+    using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Security.Claims;
     using Travel.Services.Dtos;
     using Travel.Services.Interfaces;
     using Travel.Web.Models.Travels;
@@ -10,9 +12,13 @@
     public class TravelsController : Controller
     {
         private readonly ITravelService travelService;
+        private readonly IMapper mapper;
 
-        public TravelsController(ITravelService travelService)
-            => this.travelService = travelService;
+        public TravelsController(ITravelService travelService, IMapper mapper)
+        {
+            this.travelService = travelService;
+            this.mapper = mapper;
+        }
 
         public async Task<IActionResult> Index()
         {
@@ -29,17 +35,17 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateTravelViewModel request)
+        public async Task<IActionResult> Create(CreateTravelViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            this.travelService.Create(new CreateTravelRequestModel
-            {
-                //TODO
-            });
+            var request = this.mapper.Map<CreateTravelRequestModel>(viewModel);
+            request.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await this.travelService.Create(request);
 
             return RedirectToAction("Index");
         }

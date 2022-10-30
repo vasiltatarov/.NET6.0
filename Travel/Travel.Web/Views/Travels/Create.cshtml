@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label asp-for="@Model.StartDate">Date of Adventure</label>
-            <input asp-for="@Model.StartDate" class="form-control" placeholder="Enter Date" min="@DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd")">
+            <input asp-for="@Model.StartDate" class="form-control" placeholder="Enter Date" min="@DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd")">
             <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
         </div>
         <div class="form-group">
