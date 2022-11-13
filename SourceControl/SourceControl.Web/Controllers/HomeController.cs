@@ -1,17 +1,30 @@
-﻿namespace SourceControl.Web.Controllers;
+﻿using System.Security.Claims;
+
+namespace SourceControl.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<HomeController> logger;
+    private readonly IMapper mapper;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IMapper mapper)
     {
-        _logger = logger;
+        this.logger = logger;
+        this.mapper = mapper;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var homeDto = new HomeDto
+        {
+            Username = User.FindFirstValue(ClaimTypes.Name),
+            UserId = User.UserId(),
+            Age = 25,
+        };
+
+        var vm = this.mapper.Map<HomeViewModel>(homeDto);
+
+        return View(vm);
     }
 
     public IActionResult Privacy()

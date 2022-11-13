@@ -1,6 +1,6 @@
-﻿global using System.Diagnostics;
+﻿namespace SourceControl.Web;
 
-global using Microsoft.AspNetCore.Mvc;
-
-global using SourceControl.Web.Models;
-global using SourceControl.Data;
+public static class GlobalConstants
+{
+    public const string Project_Name = "Source Control";
+}

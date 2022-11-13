@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -17,9 +14,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
         options.Password.RequireLowercase = false;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
