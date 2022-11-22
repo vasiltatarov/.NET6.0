@@ -20,7 +20,7 @@ public class Repository
 
     public LicenseType License { get; set; }
 
-    public string Code { get; set; }
+    public string Source { get; set; }
 
     public bool IsDeleted { get; set; }
 
@@ -32,11 +32,13 @@ public class Repository
 
     public virtual IdentityUser User { get; set; }
 
+    public virtual IEnumerable<Commit> Commits { get; set; }
+
     public virtual IEnumerable<Issue> Issues { get; set; }
 
     public virtual IEnumerable<PullRequest> PullRequests { get; set; }
 
-    // approvals
-    // contributors
-    // collaborators
+    // Reviewers
+    // Collaborators
+    // Branches
 }

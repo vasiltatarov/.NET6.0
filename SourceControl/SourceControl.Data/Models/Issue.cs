@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace SourceControl.Data.Models;
 
@@ -16,13 +17,17 @@ public class Issue
 
     public bool IsDeleted { get; set; }
 
+    public bool IsOpen { get; set; } = true;
+
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
     public int RepositoryId { get; set; }
 
     public virtual Repository Repository { get; set; }
 
-    // Status - Open/Closed
-    // approvals
-    // contributors
+    [Required]
+    [MaxLength(50)]
+    public string UserId { get; set; }
+
+    public virtual IdentityUser User { get; set; }
 }
