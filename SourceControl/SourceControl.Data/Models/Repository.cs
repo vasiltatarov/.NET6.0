@@ -27,7 +27,6 @@ public class Repository
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
     [Required]
-    [MaxLength(50)]
     public string UserId { get; set; }
 
     public virtual IdentityUser User { get; set; }
@@ -38,7 +37,5 @@ public class Repository
 
     public virtual IEnumerable<PullRequest> PullRequests { get; set; }
 
-    // Reviewers
-    // Collaborators
-    // Branches
+    public virtual IEnumerable<Reviewer> Reviewers { get; set; }
 }
