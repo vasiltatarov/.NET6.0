@@ -13,4 +13,8 @@ global using SourceControl.Web.Infrastructure;
 global using SourceControl.Web.Models.Home;
 global using SourceControl.Web.Models.Repository;
 
+global using SourceControl.Services;
 global using SourceControl.Services.Dtos;
+global using SourceControl.Services.Interfaces;
+
+global using SourceControl.Data.Models;
