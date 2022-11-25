@@ -22,6 +22,9 @@ public class RepositoryController : Controller
             return BadRequest();
         }
 
+        // Create repository
+        TempData["success"] = "Successfully created repository";
+
         return RedirectToAction("Index");
     }
 }
