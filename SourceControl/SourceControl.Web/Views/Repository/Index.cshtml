@@ -1,4 +1,6 @@
-﻿<partial name="_Notification" />
+﻿@model IEnumerable<RepositoryDto>
+
+<partial name="_Notification" />
 
 <div class="container p-3">
 	<div class="row pt-4">
@@ -7,8 +9,28 @@
 		</div>
 		<div class="col-6 text-end">
 			<a asp-controller="Repository" asp-action="Create" class="btn btn-primary">
-				<i class="bi ci-plus-circle"></i>&nbsp; Create New Repository</a>
+				<i class="bi ci-plus-circle"></i>&nbsp; Create New Repository
+			</a>
 		</div>
 	</div>
 	<hr />
+</div>
+
+<div class="row 12">
+	@foreach (var repo in Model)
+	{
+		<div class="card col-4 mb-3">
+			<h3 class="card-header">@repo.Name</h3>
+			<div class="card-body">
+				<p class="card-text">@(repo.Description ?? "-")</p>
+				<span class="badge bg-primary">@repo.Type</span>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">License: @repo.License</li>
+			</ul>
+			<div class="card-footer text-muted">
+				@repo.CreatedOn.ToShortDateString()
+			</div>
+		</div>
+	}
 </div>

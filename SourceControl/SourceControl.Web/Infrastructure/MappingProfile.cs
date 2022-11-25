@@ -4,7 +4,8 @@ public class MappingProfile : Profile
 {
 	public MappingProfile()
 	{
-		CreateMap<HomeDto, HomeViewModel>();
 		CreateMap<CreateRepositoryViewModel, Repository>();
+
+		CreateMap<Repository, RepositoryDto>();
 	}
 }

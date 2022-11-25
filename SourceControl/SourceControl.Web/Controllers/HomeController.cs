@@ -1,28 +1,20 @@
-﻿using System.Security.Claims;
-
-namespace SourceControl.Web.Controllers;
+﻿namespace SourceControl.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> logger;
-    private readonly IMapper mapper;
+	private readonly IRepositoryService repositoryService;
 
-    public HomeController(ILogger<HomeController> logger, IMapper mapper)
-    {
-        this.logger = logger;
-        this.mapper = mapper;
-    }
+	public HomeController(IRepositoryService repositoryService)
+	{
+		this.repositoryService = repositoryService;
+	}
 
-    public IActionResult Index()
+	public async Task<IActionResult> Index()
     {
-        var homeDto = new HomeDto
+        var vm = new HomeViewModel
         {
-            Username = User.FindFirstValue(ClaimTypes.Name),
-            UserId = User.UserId(),
-            Age = 25,
+            Repositories = await this.repositoryService.GetAllPublic()
         };
-
-        var vm = this.mapper.Map<HomeViewModel>(homeDto);
 
         return View(vm);
     }

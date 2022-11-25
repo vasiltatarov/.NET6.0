@@ -12,10 +12,11 @@ public class RepositoryController : Controller
 		this.mapper = mapper;
 	}
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        // Get all Repositories for current logged in user - public and private
-        return View();
+        var repos = await this.repositoryService.GetAll(User.UserId());
+
+        return View(repos);
     }
 
     public IActionResult Create()

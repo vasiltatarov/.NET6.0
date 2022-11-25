@@ -2,9 +2,5 @@
 
 public class HomeViewModel
 {
-    public string Username { get; set; }
-
-    public string UserId { get; set; }
-
-    public int Age { get; set; }
+	public IEnumerable<RepositoryDto> Repositories { get; set; }
 }
