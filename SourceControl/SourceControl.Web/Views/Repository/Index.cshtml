@@ -31,6 +31,9 @@
 			<div class="card-footer text-muted">
 				@repo.CreatedOn.ToShortDateString()
 			</div>
+			<a asp-controller="Repository" asp-action="Edit" asp-route-id="@repo.Id" asp class="btn btn-primary">Edit</a>
+			<br>
+			<a asp-controller="Repository" asp-action="Delete" asp-route-id="@repo.Id" asp class="btn btn-warning">Delete</a>
 		</div>
 	}
 </div>

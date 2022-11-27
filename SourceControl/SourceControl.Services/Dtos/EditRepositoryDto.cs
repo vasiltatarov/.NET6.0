@@ -2,7 +2,7 @@
 
 namespace SourceControl.Services.Dtos;
 
-public class RepositoryDto
+public class EditRepositoryDto
 {
 	public int Id { get; set; }
 
@@ -13,8 +13,4 @@ public class RepositoryDto
 	public RepositoryType Type { get; set; }
 
 	public LicenseType License { get; set; }
-
-	public DateTime CreatedOn { get; set; }
-
-	public string UserEmail { get; set; }
 }
