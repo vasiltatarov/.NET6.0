@@ -18,10 +18,18 @@
 				</a>
 			}
 		</div>
-		<hr />
-		<div class="form-group">
-			<fieldset disabled="">
-				<textarea class="form-control" id="exampleTextarea" rows="30">
+		<ul class="nav nav-tabs mt-2" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Profile</a>
+			</li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade active show" id="home" role="tabpanel">
+				<fieldset disabled="">
+					<textarea class="form-control" id="exampleTextarea" rows="30">
 					icrosoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
@@ -59,7 +67,13 @@ Global
 	EndGlobalSection
 EndGlobal
 				</textarea>
-			</fieldset>
+				</fieldset>
+			</div>
+			<div class="tab-pane fade" id="profile" role="tabpanel">
+				<fieldset disabled="">
+				</fieldset>
+			</div>	
 		</div>
+		<hr />
 	</div>
 </div>
