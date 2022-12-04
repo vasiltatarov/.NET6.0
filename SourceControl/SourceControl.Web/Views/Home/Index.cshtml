@@ -1,28 +1,30 @@
 ﻿@model HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+	<h1 class="display-4">Welcome</h1>
 </div>
 
 <div class="row 12">
 	@foreach (var repo in Model.Repositories)
 	{
-			<div class="card col-4 mb-3">
-				<h3 class="card-header">@repo.Name</h3>
-				<div class="card-body">
-					<p class="card-text">@(repo.Description ?? "-")</p>
-					<span class="badge bg-primary">@repo.Type</span>
-				</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">License: @repo.License</li>
-					<li class="list-group-item">Created by: @repo.UserEmail</li>
-				</ul>
-				<div class="card-footer text-muted">
-				@repo.CreatedOn.ToShortDateString()
-				</div>
+		<div class="card col-4 mb-3 pb-3">
+			<h3 class="card-header">@repo.Name</h3>
+			<div class="card-body">
+				<p class="card-text">@(repo.Description ?? "-")</p>
+				<span class="badge bg-primary">@repo.Type</span>
 			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">License: @repo.License</li>
+				<li class="list-group-item">Created by: @repo.UserEmail</li>
+			</ul>
+			<div class="card-footer text-muted">
+				@repo.CreatedOn.ToShortDateString()
+			</div>
+			<hr>
+			<a asp-controller="Repository" asp-action="DetailsPage" asp-route-id="@repo.Id" class="btn btn-success">View Details</a>
+		</div>
 	}
 </div>

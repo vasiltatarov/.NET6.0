@@ -25,7 +25,18 @@ public class RepositoryService : IRepositoryService
 		await this.dbContext.SaveChangesAsync();
 	}
 
-	public async Task<Repository> GetByUserId(int repoId, string userId)
+	public async Task<RepositoryDto> GetById(int id)
+	{
+		var repo = await this.dbContext.Repositories.FindAsync(id);
+		if (repo == null)
+		{
+			return null;
+		}
+
+		return this.mapper.Map<RepositoryDto>(repo);
+	}
+
+	public async Task<RepositoryDto> GetByUserId(int repoId, string userId)
 	{
 		var repo = await this.dbContext.Repositories.FindAsync(repoId);
 		if (repo == null)
@@ -38,7 +49,7 @@ public class RepositoryService : IRepositoryService
 			return null;
 		}
 
-		return repo;
+		return this.mapper.Map<RepositoryDto>(repo);
 	}
 
 	public async Task<IEnumerable<RepositoryDto>> GetAll(string userId)

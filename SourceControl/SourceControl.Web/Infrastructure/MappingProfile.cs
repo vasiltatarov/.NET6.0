@@ -8,7 +8,7 @@ public class MappingProfile : Profile
 
 		CreateMap<Repository, RepositoryDto>();
 
-		CreateMap<Repository, EditRepositoryViewModel>();
+		CreateMap<RepositoryDto, EditRepositoryViewModel>();
 
 		CreateMap<EditRepositoryViewModel, EditRepositoryDto>();
 	}

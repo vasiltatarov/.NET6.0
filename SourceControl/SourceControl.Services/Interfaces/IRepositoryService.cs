@@ -11,7 +11,9 @@ public interface IRepositoryService
 
 	Task Delete(int id, string userId);
 
-	Task<Repository> GetByUserId(int repoId, string userId);
+	Task<RepositoryDto> GetById(int id);
+
+	Task<RepositoryDto> GetByUserId(int repoId, string userId);
 
 	Task<IEnumerable<RepositoryDto>> GetAll(string userId);
 
