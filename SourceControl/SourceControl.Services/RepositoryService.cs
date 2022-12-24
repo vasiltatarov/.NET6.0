@@ -52,7 +52,7 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<RepositoryDto>(repo);
 	}
 
-	public async Task<IEnumerable<RepositoryDto>> GetAll(string userId)
+	public async Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId)
 	{
 		var repos = await this.dbContext.Repositories
 			.Where(x => x.UserId == userId && !x.IsDeleted)

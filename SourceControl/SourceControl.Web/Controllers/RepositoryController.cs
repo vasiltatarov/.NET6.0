@@ -14,7 +14,7 @@ public class RepositoryController : Controller
 
 	public async Task<IActionResult> Index()
 	{
-		var repos = await this.repositoryService.GetAll(User.UserId());
+		var repos = await this.repositoryService.GetAllByUser(User.UserId());
 
 		return View(repos);
 	}
