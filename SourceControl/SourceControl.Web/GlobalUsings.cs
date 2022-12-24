@@ -8,6 +8,8 @@ global using Microsoft.EntityFrameworkCore;
 
 global using AutoMapper;
 
+global using SourceControl.Utilities;
+
 global using SourceControl.Web.Models;
 global using SourceControl.Web.Infrastructure;
 global using SourceControl.Web.Models.Home;
