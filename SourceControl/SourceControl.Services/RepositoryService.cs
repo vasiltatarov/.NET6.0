@@ -71,6 +71,15 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
 	}
 
+	public IEnumerable<RepositoryRow> GetAllRows()
+	{
+		var repos = this.dbContext.Repositories
+			.Include(x => x.User)
+			.ToList();
+
+		return this.mapper.Map<IEnumerable<RepositoryRow>>(repos);
+	}
+
 	public async Task Edit(EditRepositoryDto editModel, string userId)
 	{
 		var repo = await this.dbContext.Repositories.FindAsync(editModel.Id);

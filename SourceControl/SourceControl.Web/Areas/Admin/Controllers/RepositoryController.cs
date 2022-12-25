@@ -1,7 +1,5 @@
 ﻿namespace SourceControl.Web.Areas.Admin.Controllers;
 
-using Newtonsoft.Json;
-
 [Authorize(Roles = WebConstants.AdminRoleName)]
 [Area(WebConstants.AdminAreaName)]
 public class RepositoryController : Controller
@@ -16,9 +14,11 @@ public class RepositoryController : Controller
         return View();
     }
 
-    public async Task<IActionResult> GetAll()
+    #region API Calls
+    public IActionResult GetAll()
     {
-        var repositories = await this.repositoryService.GetAllPublic();
-        return Json(JsonConvert.SerializeObject(repositories));
+        var repositories = this.repositoryService.GetAllRows();
+        return Json(new { data = repositories });
     }
+    #endregion
 }

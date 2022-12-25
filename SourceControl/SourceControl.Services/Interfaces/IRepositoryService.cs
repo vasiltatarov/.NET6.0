@@ -18,4 +18,6 @@ public interface IRepositoryService
 	Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId);
 
 	Task<IEnumerable<RepositoryDto>> GetAllPublic();
+
+	IEnumerable<RepositoryRow> GetAllRows();
 }
