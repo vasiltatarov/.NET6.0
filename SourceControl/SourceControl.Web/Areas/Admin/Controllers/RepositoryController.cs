@@ -10,8 +10,11 @@ public class RepositoryController : Controller
         => this.repositoryService = repositoryService;
 
     public IActionResult Index()
+        => View();
+
+    public IActionResult Edit(int id)
     {
-        return View();
+        return Ok();
     }
 
     #region API Calls
@@ -19,6 +22,13 @@ public class RepositoryController : Controller
     {
         var repositories = this.repositoryService.GetAllRows();
         return Json(new { data = repositories });
+    }
+
+    [HttpDelete]
+    public IActionResult Delete(int id)
+    {
+        var isDeleted = this.repositoryService.DeleteByAdmin(id);
+        return Json(new { success = isDeleted, message = isDeleted ? "Deleted successfuly" : "Failed" });
     }
     #endregion
 }

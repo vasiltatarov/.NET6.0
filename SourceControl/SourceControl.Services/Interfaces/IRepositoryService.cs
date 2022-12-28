@@ -19,5 +19,9 @@ public interface IRepositoryService
 
 	Task<IEnumerable<RepositoryDto>> GetAllPublic();
 
-	IEnumerable<RepositoryRow> GetAllRows();
+    #region Admin Functionality
+    IEnumerable<RepositoryRow> GetAllRows();
+
+	bool DeleteByAdmin(int id);
+    #endregion
 }

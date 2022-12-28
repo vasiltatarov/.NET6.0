@@ -71,15 +71,6 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
 	}
 
-	public IEnumerable<RepositoryRow> GetAllRows()
-	{
-		var repos = this.dbContext.Repositories
-			.Include(x => x.User)
-			.ToList();
-
-		return this.mapper.Map<IEnumerable<RepositoryRow>>(repos);
-	}
-
 	public async Task Edit(EditRepositoryDto editModel, string userId)
 	{
 		var repo = await this.dbContext.Repositories.FindAsync(editModel.Id);
@@ -113,4 +104,34 @@ public class RepositoryService : IRepositoryService
 		this.dbContext.Repositories.Update(repo);
 		await this.dbContext.SaveChangesAsync();
 	}
+
+	#region Admin Functionality
+
+	public IEnumerable<RepositoryRow> GetAllRows()
+	{
+		var repos = this.dbContext
+			.Repositories
+			.Where(x => !x.IsDeleted)
+			.Include(x => x.User)
+			.ToList();
+
+		return this.mapper.Map<IEnumerable<RepositoryRow>>(repos);
+	}
+
+	public bool DeleteByAdmin(int id)
+    {
+		var repo = this.dbContext.Repositories.FirstOrDefault(x => x.Id == id);
+
+		if (repo == null)
+        {
+			return false;
+        }
+
+		repo.IsDeleted = true;
+		this.dbContext.Repositories.Update(repo);
+		this.dbContext.SaveChanges();
+
+		return true;
+	}
+	#endregion
 }
