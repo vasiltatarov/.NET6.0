@@ -55,11 +55,6 @@ public class RepositoryController : Controller
 	public async Task<IActionResult> Edit(int id)
 	{
 		var repo = await this.repositoryService.GetByUserId(id, User.UserId());
-		if (repo == null)
-		{
-			return NotFound();
-		}
-
 		var vm = this.mapper.Map<EditRepositoryViewModel>(repo);
 
 		return View(vm);

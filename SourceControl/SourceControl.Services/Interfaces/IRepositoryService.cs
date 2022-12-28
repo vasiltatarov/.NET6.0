@@ -9,7 +9,11 @@ public interface IRepositoryService
 
 	Task Edit(EditRepositoryDto editModel, string userId);
 
+	Task Edit(EditRepositoryDto editModel);
+
 	Task Delete(int id, string userId);
+
+	bool Delete(int id);
 
 	Task<RepositoryDto> GetById(int id);
 
@@ -19,9 +23,5 @@ public interface IRepositoryService
 
 	Task<IEnumerable<RepositoryDto>> GetAllPublic();
 
-    #region Admin Functionality
     IEnumerable<RepositoryRow> GetAllRows();
-
-	bool DeleteByAdmin(int id);
-    #endregion
 }
