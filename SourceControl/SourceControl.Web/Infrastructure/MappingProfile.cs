@@ -13,8 +13,6 @@ public class MappingProfile : Profile
 
         CreateMap<RepositoryDto, EditRepositoryViewModel>();
 
-        CreateMap<EditRepositoryViewModel, EditRepositoryDto>();
-
         CreateMap<Repository, RepositoryRow>()
             .ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
     }

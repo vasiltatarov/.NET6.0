@@ -1,5 +1,6 @@
 ﻿using SourceControl.Data.Models;
 using SourceControl.Models.Dtos;
+using SourceControl.Models.Repository;
 
 namespace SourceControl.Services.Interfaces;
 
@@ -7,9 +8,9 @@ public interface IRepositoryService
 {
 	Task Create(Repository repo);
 
-	Task Edit(EditRepositoryDto editModel, string userId);
+	Task Edit(EditRepositoryViewModel editModel, string userId);
 
-	Task Edit(EditRepositoryDto editModel);
+	Task Edit(EditRepositoryViewModel editModel);
 
 	Task Delete(int id, string userId);
 

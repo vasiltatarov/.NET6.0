@@ -68,8 +68,7 @@ public class RepositoryController : Controller
 			return BadRequest();
 		}
 
-		var repo = this.mapper.Map<EditRepositoryDto>(model);
-		await this.repositoryService.Edit(repo, User.UserId());
+		await this.repositoryService.Edit(model, User.UserId());
 
 		return RedirectToAction("Index");
 	}

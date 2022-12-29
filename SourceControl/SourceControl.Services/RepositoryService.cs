@@ -4,6 +4,7 @@ using SourceControl.Data;
 using SourceControl.Data.Models;
 using SourceControl.Data.Models.Enumerations;
 using SourceControl.Models.Dtos;
+using SourceControl.Models.Repository;
 using SourceControl.Services.Interfaces;
 
 namespace SourceControl.Services;
@@ -82,9 +83,9 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<IEnumerable<RepositoryRow>>(repos);
 	}
 
-	public async Task Edit(EditRepositoryDto editModel, string userId)
+	public async Task Edit(EditRepositoryViewModel model, string userId)
 	{
-		var repo = await this.dbContext.Repositories.FindAsync(editModel.Id);
+		var repo = await this.dbContext.Repositories.FindAsync(model.Id);
 		ArgumentNullException.ThrowIfNull(repo);
 
 		if (repo.UserId != userId)
@@ -92,24 +93,24 @@ public class RepositoryService : IRepositoryService
 			throw new InvalidOperationException("Can be edit only by Repository owner!");
 		}
 
-		repo.Name = editModel.Name;
-		repo.Description = editModel.Description;
-		repo.Type = editModel.Type;
-		repo.License= editModel.License;
+		repo.Name = model.Name;
+		repo.Description = model.Description;
+		repo.Type = model.Type;
+		repo.License= model.License;
 
 		this.dbContext.Repositories.Update(repo);
 		await this.dbContext.SaveChangesAsync();
 	}
 
-	public async Task Edit(EditRepositoryDto editModel)
+	public async Task Edit(EditRepositoryViewModel model)
 	{
-		var repo = await this.dbContext.Repositories.FindAsync(editModel.Id);
+		var repo = await this.dbContext.Repositories.FindAsync(model.Id);
 		ArgumentNullException.ThrowIfNull(repo);
 
-		repo.Name = editModel.Name;
-		repo.Description = editModel.Description;
-		repo.Type = editModel.Type;
-		repo.License = editModel.License;
+		repo.Name = model.Name;
+		repo.Description = model.Description;
+		repo.Type = model.Type;
+		repo.License = model.License;
 
 		this.dbContext.Repositories.Update(repo);
 		await this.dbContext.SaveChangesAsync();

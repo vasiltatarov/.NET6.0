@@ -1,6 +1,5 @@
 ﻿namespace SourceControl.Web.Areas.Admin.Controllers;
 
-using SourceControl.Models.Dtos;
 using SourceControl.Models.Repository;
 
 [Authorize(Roles = WebConstants.AdminRoleName)]
@@ -35,8 +34,7 @@ public class RepositoryController : Controller
             return BadRequest();
         }
 
-        var repo = this.mapper.Map<EditRepositoryDto>(model);
-        await this.repositoryService.Edit(repo);
+        await this.repositoryService.Edit(model);
         
         return RedirectToAction("Index");
     }
