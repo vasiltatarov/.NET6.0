@@ -1,5 +1,8 @@
 ﻿namespace SourceControl.Web.Infrastructure;
 
+using SourceControl.Models.Dtos;
+using SourceControl.Models.Repository;
+
 public class MappingProfile : Profile
 {
     public MappingProfile()

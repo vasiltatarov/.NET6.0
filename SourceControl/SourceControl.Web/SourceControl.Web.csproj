@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SourceControl.Data\SourceControl.Data.csproj" />
+    <ProjectReference Include="..\SourceControl.Models\SourceControl.Models.csproj" />
     <ProjectReference Include="..\SourceControl.Services\SourceControl.Services.csproj" />
     <ProjectReference Include="..\SourceControl.Utilities\SourceControl.Utilities.csproj" />
   </ItemGroup>

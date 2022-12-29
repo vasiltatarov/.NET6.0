@@ -1,7 +1,7 @@
 ﻿using SourceControl.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 
-namespace SourceControl.Web.Models.Repository;
+namespace SourceControl.Models.Repository;
 
 public class CreateRepositoryViewModel
 {

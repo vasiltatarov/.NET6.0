@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SourceControl.Data;
 using SourceControl.Data.Models;
 using SourceControl.Data.Models.Enumerations;
-using SourceControl.Services.Dtos;
+using SourceControl.Models.Dtos;
 using SourceControl.Services.Interfaces;
 
 namespace SourceControl.Services;

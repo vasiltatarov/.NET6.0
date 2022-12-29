@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SourceControl.Data\SourceControl.Data.csproj" />
+    <ProjectReference Include="..\SourceControl.Models\SourceControl.Models.csproj" />
   </ItemGroup>
 
 </Project>

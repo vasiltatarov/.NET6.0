@@ -1,5 +1,5 @@
 ﻿using SourceControl.Data.Models;
-using SourceControl.Services.Dtos;
+using SourceControl.Models.Dtos;
 
 namespace SourceControl.Services.Interfaces;
 

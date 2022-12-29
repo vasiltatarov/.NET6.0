@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceControl.Data", "Sourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceControl.Services", "SourceControl.Services\SourceControl.Services.csproj", "{F8680BF8-1A10-4A00-A628-D409405E3F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl.Utilities", "SourceControl.Utilities\SourceControl.Utilities.csproj", "{596DEA82-D97E-43A4-811C-F254D59014CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceControl.Utilities", "SourceControl.Utilities\SourceControl.Utilities.csproj", "{596DEA82-D97E-43A4-811C-F254D59014CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceControl.Models", "SourceControl.Models\SourceControl.Models.csproj", "{81202814-4B57-4589-8AC0-85E5AB09870C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{596DEA82-D97E-43A4-811C-F254D59014CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{596DEA82-D97E-43A4-811C-F254D59014CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{596DEA82-D97E-43A4-811C-F254D59014CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81202814-4B57-4589-8AC0-85E5AB09870C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81202814-4B57-4589-8AC0-85E5AB09870C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81202814-4B57-4589-8AC0-85E5AB09870C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81202814-4B57-4589-8AC0-85E5AB09870C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

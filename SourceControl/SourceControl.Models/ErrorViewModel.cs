@@ -1,4 +1,4 @@
-namespace SourceControl.Web.Models;
+namespace SourceControl.Models;
 
 public class ErrorViewModel
 {

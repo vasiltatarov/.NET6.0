@@ -1,5 +1,8 @@
 ﻿namespace SourceControl.Web.Areas.Admin.Controllers;
 
+using SourceControl.Models.Dtos;
+using SourceControl.Models.Repository;
+
 [Authorize(Roles = WebConstants.AdminRoleName)]
 [Area(WebConstants.AdminAreaName)]
 public class RepositoryController : Controller
