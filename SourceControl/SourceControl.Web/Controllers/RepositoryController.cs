@@ -27,7 +27,25 @@ public class RepositoryController : Controller
 			return NotFound();
 		}
 
-		return View(repo);
+		var vm = new RepositoryDetailsPageViewModel
+		{
+			Repository = repo,
+			Issues = new List<IssueDto>
+			{
+				new IssueDto
+				{
+					Title = "Nqma",
+					Comment = "Nqma comment"
+				},
+				new IssueDto
+				{
+					Title = "Nqma 1",
+					Comment = "Nqma comment 1"
+				}
+			}
+		};
+
+		return View(vm);
 	}
 
 	public IActionResult Create()

@@ -10,6 +10,8 @@ public class RepositoryDto
 
     public string Description { get; set; }
 
+    public string Source { get; set; }
+
     public RepositoryType Type { get; set; }
 
     public LicenseType License { get; set; }

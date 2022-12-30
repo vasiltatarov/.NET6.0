@@ -1,79 +1,45 @@
-﻿@model RepositoryDto
+﻿@model RepositoryDetailsPageViewModel
 
 <partial name="_Notification" />
 
 <div class="container p-3">
-	<div class="row pt-4">
-		<div class="col-6">
-			<h1>@Model.Name</h1>
-		</div>
-		<div class="col-6 text-end">
-			@if (Model.UserId == User.UserId())
-			{
-				<a asp-controller="Repository" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary m-2">
-					<i class="bi bi-pencil">&nbsp; Edit</i>
-				</a>
-				<a asp-controller="Repository" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning">
-					<i class="bi bi-trash3">&nbsp; Delete</i>
-				</a>
-			}
-		</div>
-		<ul class="nav nav-tabs mt-2" role="tablist">
-			<li class="nav-item" role="presentation">
-				<a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
-			</li>
-			<li class="nav-item" role="presentation">
-				<a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1">Profile</a>
-			</li>
-		</ul>
-		<div id="myTabContent" class="tab-content">
-			<div class="tab-pane fade active show" id="home" role="tabpanel">
-				<fieldset disabled="">
-					<textarea class="form-control" id="exampleTextarea" rows="30">
-					icrosoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Web", "Travel.Web\Travel.Web.csproj", "{311FAA69-D795-4658-88E6-DA4EF9CCDF35}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Data", "Travel.Data\Travel.Data.csproj", "{4C8B5053-E8EE-4FE5-821D-6624E9842B37}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Services", "Travel.Services\Travel.Services.csproj", "{61843183-4CC8-4CCB-83AF-7CB0CDC5D6DD}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{311FAA69-D795-4658-88E6-DA4EF9CCDF35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{311FAA69-D795-4658-88E6-DA4EF9CCDF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{311FAA69-D795-4658-88E6-DA4EF9CCDF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{311FAA69-D795-4658-88E6-DA4EF9CCDF35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C8B5053-E8EE-4FE5-821D-6624E9842B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C8B5053-E8EE-4FE5-821D-6624E9842B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C8B5053-E8EE-4FE5-821D-6624E9842B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C8B5053-E8EE-4FE5-821D-6624E9842B37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61843183-4CC8-4CCB-83AF-7CB0CDC5D6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61843183-4CC8-4CCB-83AF-7CB0CDC5D6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61843183-4CC8-4CCB-83AF-7CB0CDC5D6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61843183-4CC8-4CCB-83AF-7CB0CDC5D6DD}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9E5EB218-AD0E-45B6-8D26-099CD2D692CB}
-	EndGlobalSection
-EndGlobal
-				</textarea>
-				</fieldset>
-			</div>
-			<div class="tab-pane fade" id="profile" role="tabpanel">
-				<fieldset disabled="">
-				</fieldset>
-			</div>	
-		</div>
-		<hr />
-	</div>
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>@Model.Repository.Name</h1>
+        </div>
+        <div class="col-6 text-end">
+            @if (Model.Repository.UserId == User.UserId())
+            {
+                <a asp-controller="Repository" asp-action="Edit" asp-route-id="@Model.Repository.Id" class="btn btn-primary m-2">
+                    <i class="bi bi-pencil">&nbsp; Edit</i>
+                </a>
+                <a asp-controller="Repository" asp-action="Delete" asp-route-id="@Model.Repository.Id" class="btn btn-warning">
+                    <i class="bi bi-trash3">&nbsp; Delete</i>
+                </a>
+            }
+        </div>
+        <ul class="nav nav-tabs mt-2" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-bs-toggle="tab" href="#code" aria-selected="true" role="tab">Code</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#issues" aria-selected="false" role="tab" tabindex="-1">Issues</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#pullRequests" aria-selected="false" role="tab" tabindex="-1">Pull Requests</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active show" id="code" role="tabpanel">
+                <partial name="_Code" model="Model.Repository.Source" />
+            </div>
+            <div class="tab-pane fade" id="issues" role="tabpanel">
+                <partial name="_Issues" model="Model.Issues" />
+            </div>
+            <div class="tab-pane fade" id="pullRequests" role="tabpanel">
+                <partial name="_PullRequests" model="Model.Repository.Source" />
+            </div>
+        </div>
+        <hr />
+    </div>
 </div>

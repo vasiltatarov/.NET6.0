@@ -1,0 +1,9 @@
+﻿@model IEnumerable<IssueDto>
+
+<fieldset disabled="">
+    @foreach (var item in Model)
+    {
+        <h1>@item.Title</h1>
+        <p>@item.Comment</p>
+    }
+</fieldset>
