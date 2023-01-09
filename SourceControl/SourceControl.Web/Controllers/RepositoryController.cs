@@ -1,4 +1,6 @@
-﻿namespace SourceControl.Web.Controllers;
+﻿using SourceControl.Models.Issue;
+
+namespace SourceControl.Web.Controllers;
 
 [Authorize]
 public class RepositoryController : Controller
@@ -97,4 +99,24 @@ public class RepositoryController : Controller
 
 		return RedirectToAction("Index");
 	}
+
+	#region Issues
+	public IActionResult CreateIssue(int repoId)
+	{
+		return View(new CreateIssueViewModel { RepositoryId = repoId });
+	}
+
+	[HttpPost]
+	public IActionResult CreateIssue(CreateIssueViewModel model)
+	{
+		if (!ModelState.IsValid)
+		{
+			return BadRequest();
+		}
+
+		var userId = User.UserId();
+
+		return RedirectToAction("DetailsPage", new { id = model.RepositoryId });
+	}
+	#endregion
 }

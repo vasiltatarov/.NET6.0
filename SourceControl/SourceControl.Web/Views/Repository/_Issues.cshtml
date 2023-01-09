@@ -1,9 +1,23 @@
-﻿@model IEnumerable<IssueDto>
+﻿@model RepositoryDetailsPageViewModel
+
+<div class="container p-3">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2>Your Issues</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-area="" asp-controller="Repository" asp-action="CreateIssue" asp-route-repoId="@Model.Repository.Id" class="btn btn-primary">
+				<i class="bi bi-pencil-square">&nbsp; New Issue</i>
+			</a>
+		</div>
+	</div>
+	<hr />
+</div>
 
 <fieldset disabled="">
-    @foreach (var item in Model)
-    {
-        <h1>@item.Title</h1>
-        <p>@item.Comment</p>
-    }
+	@foreach (var item in Model.Issues)
+	{
+		<h1>@item.Title</h1>
+		<p>@item.Comment</p>
+	}
 </fieldset>
