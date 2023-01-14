@@ -8,5 +8,7 @@ public class RepositoryDetailsPageViewModel
 
     public IEnumerable<IssueDto> Issues { get; set; }
 
+    public IEnumerable<PullRequestDto> PullRequests { get; set; }
+
     public string Tab { get; set; }
 }

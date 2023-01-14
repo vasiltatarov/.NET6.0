@@ -35,7 +35,7 @@ public class IssueService : IIssueService
 		}
 		catch (Exception ex)
 		{
-			throw new InvalidOperationException(ex.Message);
+			throw new InvalidOperationException("Canot create issue!", ex);
 		}
 	}
 

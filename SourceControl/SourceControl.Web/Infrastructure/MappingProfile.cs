@@ -1,8 +1,5 @@
 ﻿namespace SourceControl.Web.Infrastructure;
 
-using SourceControl.Models.Dtos;
-using SourceControl.Models.Repository;
-
 public class MappingProfile : Profile
 {
     public MappingProfile()
@@ -17,5 +14,7 @@ public class MappingProfile : Profile
             .ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
 
         CreateMap<Issue, IssueDto>();
+
+        CreateMap<PullRequest, PullRequestDto>();
     }
 }

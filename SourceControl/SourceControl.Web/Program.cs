@@ -20,6 +20,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IRepositoryService, RepositoryService>();
 builder.Services.AddTransient<IIssueService, IssueService>();
+builder.Services.AddTransient<IPullRequestService, PullRequestService>();
 
 var app = builder.Build();
 app.PrepareDatabase();

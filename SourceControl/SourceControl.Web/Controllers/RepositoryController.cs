@@ -1,4 +1,5 @@
 ﻿using SourceControl.Models.Issue;
+using SourceControl.Models.PullRequest;
 
 namespace SourceControl.Web.Controllers;
 
@@ -8,12 +9,17 @@ public class RepositoryController : Controller
 	private readonly IRepositoryService repositoryService;
 	private readonly IMapper mapper;
 	private readonly IIssueService issueService;
+	private readonly IPullRequestService pullRequestService;
 
-	public RepositoryController(IRepositoryService repositoryService, IMapper mapper, IIssueService issueService)
+	public RepositoryController(IRepositoryService repositoryService,
+		IMapper mapper,
+		IIssueService issueService,
+		IPullRequestService pullRequestService)
 	{
 		this.repositoryService = repositoryService;
 		this.mapper = mapper;
 		this.issueService = issueService;
+		this.pullRequestService = pullRequestService;
 	}
 
 	public async Task<IActionResult> Index()
@@ -32,11 +38,13 @@ public class RepositoryController : Controller
 		}
 
 		var issues = await this.issueService.GetAll(id);
+		var prs = await this.pullRequestService.GetAll(id);
 
 		var vm = new RepositoryDetailsPageViewModel
 		{
 			Repository = repo,
 			Issues = issues,
+			PullRequests = prs,
 			Tab = tab
 		};
 
@@ -95,9 +103,7 @@ public class RepositoryController : Controller
 
 	#region Issues
 	public IActionResult CreateIssue(int repoId)
-	{
-		return View(new CreateIssueViewModel { RepositoryId = repoId });
-	}
+		=> View(new CreateIssueViewModel { RepositoryId = repoId });
 
 	[HttpPost]
 	public async Task<IActionResult> CreateIssue(CreateIssueViewModel model)
@@ -111,6 +117,25 @@ public class RepositoryController : Controller
 		await this.issueService.Create(model.Title, model.Comment, model.RepositoryId, userId);
 
 		return RedirectToAction("DetailsPage", new { id = model.RepositoryId, tab = "issues" });
+	}
+	#endregion
+
+	#region Pull Requests
+	public IActionResult CreatePullRequest(int repoId)
+		=> View(new CreatePullRequestViewModel { RepositoryId = repoId });
+
+	[HttpPost]
+	public async Task<IActionResult> CreatePullRequest(CreatePullRequestViewModel model)
+	{
+		if (!ModelState.IsValid)
+		{
+			return BadRequest();
+		}
+
+		var userId = User.UserId();
+		await this.pullRequestService.Create(model.Title, model.Description, model.RepositoryId, userId);
+
+		return RedirectToAction("DetailsPage", new { id = model.RepositoryId, tab = "pr" });
 	}
 	#endregion
 }
