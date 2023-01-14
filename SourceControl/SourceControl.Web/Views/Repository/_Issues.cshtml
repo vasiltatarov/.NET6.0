@@ -3,7 +3,7 @@
 <div class="container p-3">
 	<div class="row pt-4">
 		<div class="col-6">
-			<h2>Your Issues</h2>
+			<h2>All Issues</h2>
 		</div>
 		<div class="col-6 text-end">
 			<a asp-area="" asp-controller="Repository" asp-action="CreateIssue" asp-route-repoId="@Model.Repository.Id" class="btn btn-primary">
@@ -12,12 +12,10 @@
 		</div>
 	</div>
 	<hr />
-</div>
-
-<fieldset disabled="">
-	@foreach (var item in Model.Issues)
+	@foreach (var issue in Model.Issues)
 	{
-		<h1>@item.Title</h1>
-		<p>@item.Comment</p>
+		<h1>Title: @issue.Title</h1>
+		<p>Comment: @issue.Comment</p>
+		<p>From: @issue.UserEmail</p>
 	}
-</fieldset>
+</div>

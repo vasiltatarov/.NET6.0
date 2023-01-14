@@ -15,5 +15,7 @@ public class MappingProfile : Profile
 
         CreateMap<Repository, RepositoryRow>()
             .ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
+
+        CreateMap<Issue, IssueDto>();
     }
 }

@@ -7,11 +7,13 @@ public class RepositoryController : Controller
 {
 	private readonly IRepositoryService repositoryService;
 	private readonly IMapper mapper;
+	private readonly IIssueService issueService;
 
-	public RepositoryController(IRepositoryService repositoryService, IMapper mapper)
+	public RepositoryController(IRepositoryService repositoryService, IMapper mapper, IIssueService issueService)
 	{
 		this.repositoryService = repositoryService;
 		this.mapper = mapper;
+		this.issueService = issueService;
 	}
 
 	public async Task<IActionResult> Index()
@@ -21,7 +23,7 @@ public class RepositoryController : Controller
 		return View(repos);
 	}
 
-	public async Task<IActionResult> DetailsPage(int id)
+	public async Task<IActionResult> DetailsPage(int id, string tab = "code")
 	{
 		var repo = await this.repositoryService.GetById(id);
 		if (repo == null)
@@ -29,22 +31,13 @@ public class RepositoryController : Controller
 			return NotFound();
 		}
 
+		var issues = await this.issueService.GetAll(id);
+
 		var vm = new RepositoryDetailsPageViewModel
 		{
 			Repository = repo,
-			Issues = new List<IssueDto>
-			{
-				new IssueDto
-				{
-					Title = "Nqma",
-					Comment = "Nqma comment"
-				},
-				new IssueDto
-				{
-					Title = "Nqma 1",
-					Comment = "Nqma comment 1"
-				}
-			}
+			Issues = issues,
+			Tab = tab
 		};
 
 		return View(vm);
@@ -107,7 +100,7 @@ public class RepositoryController : Controller
 	}
 
 	[HttpPost]
-	public IActionResult CreateIssue(CreateIssueViewModel model)
+	public async Task<IActionResult> CreateIssue(CreateIssueViewModel model)
 	{
 		if (!ModelState.IsValid)
 		{
@@ -115,8 +108,9 @@ public class RepositoryController : Controller
 		}
 
 		var userId = User.UserId();
+		await this.issueService.Create(model.Title, model.Comment, model.RepositoryId, userId);
 
-		return RedirectToAction("DetailsPage", new { id = model.RepositoryId });
+		return RedirectToAction("DetailsPage", new { id = model.RepositoryId, tab = "issues" });
 	}
 	#endregion
 }

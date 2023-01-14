@@ -19,6 +19,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IRepositoryService, RepositoryService>();
+builder.Services.AddTransient<IIssueService, IssueService>();
 
 var app = builder.Build();
 app.PrepareDatabase();
