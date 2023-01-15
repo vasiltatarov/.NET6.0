@@ -57,30 +57,7 @@
 				<partial name="_Code" model="Model.Repository.Source" />
 			</div>
 			<div class="tab-pane fade @issuesNavClass @issuesPaneClass" id="issues" role="tabpanel">
-				<div class="container p-3">
-					<div class="row pt-4">
-						<div class="col-6">
-							<h2>Issues</h2>
-						</div>
-						<div class="col-6 text-end">
-							<a asp-area="" asp-controller="Repository" asp-action="CreateIssue" asp-route-repoId="@Model.Repository.Id" class="btn btn-primary">
-								<i class="bi bi-pencil-square">&nbsp; New Issue</i>
-							</a>
-						</div>
-					</div>
-					<hr />
-					<table id="issueTblData" class="table table-bordered table-striped" style="width:100%">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Comment</th>
-								<th>Status</th>
-								<th>Owner</th>
-								<th>Created On</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
+				<partial name="_Issues" model="Model" />
 			</div>
 			<div class="tab-pane fade @pRNavClass @pRPaneClass" id="pullRequests" role="tabpanel">
 				<partial name="_PullRequests" model="Model" />
