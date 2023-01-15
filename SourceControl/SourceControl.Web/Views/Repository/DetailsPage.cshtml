@@ -1,68 +1,116 @@
 ﻿@model RepositoryDetailsPageViewModel
 @{
-    var codeNavClass = "";
-    var issuesNavClass = "";
-    var pRNavClass = "";
-    var codePaneClass = "";
-    var issuesPaneClass = "";
-    var pRPaneClass = "";
-    switch (Model.Tab)
-    {
-        case "code":
-            codeNavClass = "active";
-            codePaneClass = "show";
-            break;
-        case "issues":
-            issuesNavClass = "active";
-            issuesPaneClass = "show";
-            break;
-        case "pr":
-            pRNavClass = "active";
-            pRPaneClass = "show";
-            break;
-    }
+	var codeNavClass = "";
+	var issuesNavClass = "";
+	var pRNavClass = "";
+	var codePaneClass = "";
+	var issuesPaneClass = "";
+	var pRPaneClass = "";
+	switch (Model.Tab)
+	{
+		case "code":
+			codeNavClass = "active";
+			codePaneClass = "show";
+			break;
+		case "issues":
+			issuesNavClass = "active";
+			issuesPaneClass = "show";
+			break;
+		case "pr":
+			pRNavClass = "active";
+			pRPaneClass = "show";
+			break;
+	}
 }
 
 <partial name="_Notification" />
 
 <div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h1>@Model.Repository.Name</h1>
-        </div>
-        <div class="col-6 text-end">
-            @if (Model.Repository.UserId == User.UserId())
-            {
-                <a asp-controller="Repository" asp-action="Edit" asp-route-id="@Model.Repository.Id" class="btn btn-primary m-2">
-                    <i class="bi bi-pencil">&nbsp; Edit</i>
-                </a>
-                <a asp-controller="Repository" asp-action="Delete" asp-route-id="@Model.Repository.Id" class="btn btn-warning">
-                    <i class="bi bi-trash3">&nbsp; Delete</i>
-                </a>
-            }
-        </div>
-        <ul class="nav nav-tabs mt-2" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link @codeNavClass" data-bs-toggle="tab" href="#code" aria-selected="true" role="tab">Code</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link @issuesNavClass" data-bs-toggle="tab" href="#issues" aria-selected="false" role="tab" tabindex="-1">Issues</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link @pRNavClass" data-bs-toggle="tab" href="#pullRequests" aria-selected="false" role="tab" tabindex="-1">Pull Requests</a>
-            </li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade @codeNavClass @codePaneClass" id="code" role="tabpanel">
-                <partial name="_Code" model="Model.Repository.Source" />
-            </div>
-            <div class="tab-pane fade @issuesNavClass @issuesPaneClass" id="issues" role="tabpanel">
-                <partial name="_Issues" model="Model" />
-            </div>
-            <div class="tab-pane fade @pRNavClass @pRPaneClass" id="pullRequests" role="tabpanel">
-                <partial name="_PullRequests" model="Model" />
-            </div>
-        </div>
-        <hr />
-    </div>
+	<div class="row pt-4">
+		<div class="col-6">
+			<h1>@Model.Repository.Name</h1>
+		</div>
+		<div class="col-6 text-end">
+			@if (Model.Repository.UserId == User.UserId())
+			{
+				<a asp-controller="Repository" asp-action="Edit" asp-route-id="@Model.Repository.Id" class="btn btn-primary m-2">
+					<i class="bi bi-pencil">&nbsp; Edit</i>
+				</a>
+				<a asp-controller="Repository" asp-action="Delete" asp-route-id="@Model.Repository.Id" class="btn btn-warning">
+					<i class="bi bi-trash3">&nbsp; Delete</i>
+				</a>
+			}
+		</div>
+		<ul class="nav nav-tabs mt-2" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link @codeNavClass" data-bs-toggle="tab" href="#code" aria-selected="true" role="tab">Code</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link @issuesNavClass" data-bs-toggle="tab" href="#issues" aria-selected="false" role="tab" tabindex="-1">Issues</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link @pRNavClass" data-bs-toggle="tab" href="#pullRequests" aria-selected="false" role="tab" tabindex="-1">Pull Requests</a>
+			</li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade @codeNavClass @codePaneClass" id="code" role="tabpanel">
+				<partial name="_Code" model="Model.Repository.Source" />
+			</div>
+			<div class="tab-pane fade @issuesNavClass @issuesPaneClass" id="issues" role="tabpanel">
+				<div class="container p-3">
+					<div class="row pt-4">
+						<div class="col-6">
+							<h2>Issues</h2>
+						</div>
+						<div class="col-6 text-end">
+							<a asp-area="" asp-controller="Repository" asp-action="CreateIssue" asp-route-repoId="@Model.Repository.Id" class="btn btn-primary">
+								<i class="bi bi-pencil-square">&nbsp; New Issue</i>
+							</a>
+						</div>
+					</div>
+					<hr />
+					<table id="issueTblData" class="table table-bordered table-striped" style="width:100%">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Comment</th>
+								<th>Status</th>
+								<th>Owner</th>
+								<th>Created On</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<div class="tab-pane fade @pRNavClass @pRPaneClass" id="pullRequests" role="tabpanel">
+				<partial name="_PullRequests" model="Model" />
+			</div>
+		</div>
+		<hr />
+	</div>
 </div>
+
+@section Scripts{
+	<script>
+		var dataTable;
+
+		$(document).ready(function () {
+			loadDataTable();
+		});
+
+		function loadDataTable() {
+			dataTable = $('#issueTblData').DataTable({
+				"ajax": {
+					"url": `/Issue/GetAll?repositoryId=${@Model.Repository.Id}`
+				},
+				"columns": [
+					{ "data": "title", "width": "20%" },
+					{ "data": "comment", "width": "30%" },
+					{ "data": "status", "width": "15%" },
+					{ "data": "userEmail", "width": "20%" },
+					{ "data": "createdOn", "width": "15%" }
+				]
+			});
+		};
+	</script>
+}

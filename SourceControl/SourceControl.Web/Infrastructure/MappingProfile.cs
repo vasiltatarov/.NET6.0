@@ -13,8 +13,10 @@ public class MappingProfile : Profile
         CreateMap<Repository, RepositoryRow>()
             .ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
 
-        CreateMap<Issue, IssueDto>();
+        CreateMap<Issue, IssueDto>()
+			.ForMember(x => x.Status, x => x.MapFrom(y => y.IsOpen ? "Open" : "Closed"))
+			.ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
 
-        CreateMap<PullRequest, PullRequestDto>();
+		CreateMap<PullRequest, PullRequestDto>();
     }
 }
