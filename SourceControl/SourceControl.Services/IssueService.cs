@@ -18,6 +18,32 @@ public class IssueService : IIssueService
 		this.mapper = mapper;
 	}
 
+	public async Task<bool> Close(int id, int repoId, string userId)
+	{
+		var repo = await this.dbContext.Repositories.FirstOrDefaultAsync(x => x.Id == repoId);
+		if (repo == null || repo.UserId != userId)
+		{
+			return false;
+		}
+
+		var issue = await this.dbContext.Issues.FirstOrDefaultAsync(x => x.Id == id);
+		if (issue == null || issue.RepositoryId != repoId)
+		{
+			return false;
+		}
+
+		if (issue.IsOpen == false)
+		{
+			throw new InvalidOperationException("This issue is already closed!");
+		}
+
+		issue.IsOpen = false;
+		this.dbContext.Issues.Update(issue);
+		await this.dbContext.SaveChangesAsync();
+
+		return true;
+	}
+
 	public async Task Create(string title, string comment, int RepositoryId, string UserId)
 	{
 		try

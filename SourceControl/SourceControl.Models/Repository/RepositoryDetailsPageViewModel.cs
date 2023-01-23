@@ -11,4 +11,6 @@ public class RepositoryDetailsPageViewModel
     public IEnumerable<PullRequestDto> PullRequests { get; set; }
 
     public string Tab { get; set; }
+
+    public bool IsUserOwner { get; set; }
 }

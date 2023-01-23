@@ -84,8 +84,21 @@
 					{ "data": "title", "width": "20%" },
 					{ "data": "comment", "width": "30%" },
 					{ "data": "status", "width": "15%" },
-					{ "data": "userEmail", "width": "20%" },
-					{ "data": "createdOn", "width": "15%" }
+					{ "data": "userEmail", "width": "15%" },
+					{ "data": "createdOn", "width": "10%" },
+					{
+						"data": "id",
+						"render": function (data) {
+							return `
+								<div class="w-50 btn-group" role="group">
+									<a href="/Issue/Close?id=${data}&repoId=${@Model.Repository.Id}" class="btn btn-success mx-2 @(Model.IsUserOwner ? "" : "disabled")">
+										Close
+									</a>
+								</div>
+							`;
+						},
+						"width": "10%"
+					}
 				]
 			});
 		};

@@ -45,7 +45,8 @@ public class RepositoryController : Controller
 			Repository = repo,
 			Issues = issues,
 			PullRequests = prs,
-			Tab = tab
+			Tab = tab,
+			IsUserOwner = repo.UserId == this.User.UserId()
 		};
 
 		return View(vm);
