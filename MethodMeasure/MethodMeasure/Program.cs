@@ -1,5 +1,6 @@
 using MethodMeasure;
 using MethodMeasure.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<WeatherService>();
+builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 
 var app = builder.Build();
 MethodTimeLogger.Logger = app.Logger;
