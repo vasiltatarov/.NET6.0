@@ -21,6 +21,17 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IRepositoryService, RepositoryService>();
 builder.Services.AddTransient<IIssueService, IssueService>();
 builder.Services.AddTransient<IPullRequestService, PullRequestService>();
+builder.Services.AddLogging(logger =>
+{
+    logger.AddConfiguration(builder.Configuration.GetSection("Logging"))
+      .AddSerilog(new LoggerConfiguration()
+        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
+		.WriteTo
+        .File("log-file.txt")
+        .CreateLogger())
+      .AddConsole();
+	logger.AddDebug();
+});
 
 var app = builder.Build();
 app.PrepareDatabase();

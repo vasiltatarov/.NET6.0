@@ -65,11 +65,14 @@ public class RepositoryController : Controller
 			return BadRequest();
 		}
 
-		var repo = this.mapper.Map<Repository>(model);
-		repo.UserId = User.UserId();
-		await this.repositoryService.Create(repo);
-
-		TempData["success"] = "Successfully created repository";
+		if (await this.repositoryService.Create(model, User.UserId()))
+		{
+			TempData["success"] = "Successfully created repository";
+		}
+		else
+		{
+			TempData["error"] = "Something went wrong!";
+		}
 
 		return RedirectToAction("Index");
 	}

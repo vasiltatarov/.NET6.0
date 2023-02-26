@@ -6,7 +6,7 @@ namespace SourceControl.Services.Interfaces;
 
 public interface IRepositoryService
 {
-	Task Create(Repository repo);
+	Task<bool> Create(CreateRepositoryViewModel repo, string userId);
 
 	Task Edit(EditRepositoryViewModel editModel, string userId);
 

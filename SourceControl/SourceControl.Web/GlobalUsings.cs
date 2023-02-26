@@ -6,6 +6,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 
 global using AutoMapper;
+global using Serilog;
 
 global using SourceControl.Utilities;
 

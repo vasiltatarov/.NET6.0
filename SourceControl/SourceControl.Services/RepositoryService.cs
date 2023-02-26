@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SourceControl.Data;
 using SourceControl.Data.Models;
 using SourceControl.Data.Models.Enumerations;
 using SourceControl.Models.Dtos;
 using SourceControl.Models.Repository;
 using SourceControl.Services.Interfaces;
+using System.Text.Json;
 
 namespace SourceControl.Services;
 
@@ -13,17 +15,32 @@ public class RepositoryService : IRepositoryService
 {
 	private readonly ApplicationDbContext dbContext;
 	private readonly IMapper mapper;
+	private readonly ILogger<RepositoryService> logger;
 
-	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper)
+	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper, ILogger<RepositoryService> logger)
 	{
 		this.dbContext = dbContext;
 		this.mapper = mapper;
+		this.logger = logger;
 	}
 
-	public async Task Create(Repository repo)
+	public async Task<bool> Create(CreateRepositoryViewModel model, string userId)
 	{
-		await this.dbContext.AddAsync(repo);
-		await this.dbContext.SaveChangesAsync();
+		try
+		{
+			var repo = this.mapper.Map<Repository>(model);
+			repo.UserId = userId;
+
+			await this.dbContext.AddAsync(repo);
+			await this.dbContext.SaveChangesAsync();
+
+			return true;
+		}
+		catch (Exception ex)
+		{
+			this.logger.LogError(ex, $"Method {nameof(Create)}, CreateRepositoryViewModel - {JsonSerializer.Serialize(model)}, userId - {userId}");
+			return false;
+		}
 	}
 
 	public async Task<RepositoryDto> GetById(int id)
