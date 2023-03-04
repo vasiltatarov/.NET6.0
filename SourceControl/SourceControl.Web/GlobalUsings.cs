@@ -20,6 +20,7 @@ global using SourceControl.Data.Models;
 global using SourceControl.Data.Models.Enumerations;
 
 global using SourceControl.Models;
+global using SourceControl.Models.Dtos;
+global using SourceControl.Models.ImportExportModels;
 global using SourceControl.Models.Home;
 global using SourceControl.Models.Repository;
-global using SourceControl.Models.Dtos;

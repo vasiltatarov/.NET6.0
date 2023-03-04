@@ -18,5 +18,8 @@ public class MappingProfile : Profile
 			.ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
 
 		CreateMap<PullRequest, PullRequestDto>();
+
+		CreateMap<RepositoryDto, RepositoryExportModel>()
+			.ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToString("MM-dd-yyyy")));
     }
 }

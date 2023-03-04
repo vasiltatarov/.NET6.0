@@ -1,0 +1,41 @@
+﻿<div class="container">
+	<h1>Repositories Import/Export Plugin</h1>
+	<hr />
+	<h2>I. Generate Excel File With All Repositories</h2>
+	<div class="bs-component">
+		<input id="export_button" class="btn btn-primary m-4 button-file-export" value="Export" />
+		<button id="refresh_button" class="source-button btn btn-primary btn-xs" type="button" tabindex="0">
+			<i class="bi bi-arrow-clockwise"></i>
+		</button>
+	</div>
+	<br />
+	<h2>II. Import Excel File To Generate Repositories</h2>
+</div>
+
+@section Scripts{
+	<script>
+		document.getElementById('refresh_button').disabled = true;
+
+		document.getElementById('export_button').addEventListener('click', function (e) {
+			e.preventDefault();
+
+			let exportButton = document.querySelector('.button-file-export');
+			exportButton.disabled = true;
+
+			let refreshButton = document.getElementById('refresh_button');
+			refreshButton.disabled = false;
+
+			window.location = '/Admin/RepositoryImportExportPlugin/Export';
+		});
+
+		document.getElementById('refresh_button').addEventListener('click', function (e) {
+			e.preventDefault();
+
+			let exportButton = document.querySelector('.button-file-export');
+			exportButton.disabled = false;
+
+			let refreshButton = document.getElementById('refresh_button');
+			refreshButton.disabled = true;
+		});
+	</script>
+}

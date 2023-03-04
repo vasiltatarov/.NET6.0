@@ -21,6 +21,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IRepositoryService, RepositoryService>();
 builder.Services.AddTransient<IIssueService, IssueService>();
 builder.Services.AddTransient<IPullRequestService, PullRequestService>();
+builder.Services.AddTransient<IExcelImportExportService, ExcelImportExportService>();
 builder.Services.AddLogging(loggerBuilder =>
 {
 	loggerBuilder.AddConfiguration(builder.Configuration.GetSection("Logging"))

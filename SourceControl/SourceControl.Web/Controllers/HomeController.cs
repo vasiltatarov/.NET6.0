@@ -13,7 +13,7 @@ public class HomeController : Controller
     {
         var vm = new HomeViewModel
         {
-            Repositories = await this.repositoryService.GetAllPublic()
+            Repositories = await this.repositoryService.GetAll()
         };
 
         return View(vm);

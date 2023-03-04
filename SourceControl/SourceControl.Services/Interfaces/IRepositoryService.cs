@@ -1,5 +1,4 @@
-﻿using SourceControl.Data.Models;
-using SourceControl.Models.Dtos;
+﻿using SourceControl.Models.Dtos;
 using SourceControl.Models.Repository;
 
 namespace SourceControl.Services.Interfaces;
@@ -22,7 +21,7 @@ public interface IRepositoryService
 
 	Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId);
 
-	Task<IEnumerable<RepositoryDto>> GetAllPublic();
+	Task<IEnumerable<RepositoryDto>> GetAll(bool publicOnly = true);
 
     IEnumerable<RepositoryRow> GetAllRows();
 }

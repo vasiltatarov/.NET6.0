@@ -70,20 +70,27 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<RepositoryDto>(repo);
 	}
 
+	public async Task<IEnumerable<RepositoryDto>> GetAll(bool publicOnly = true)
+	{
+		var repos = this.dbContext.Repositories
+			.Include(x => x.User)
+			.Where(x => !x.IsDeleted)
+			.AsQueryable();
+
+		if (publicOnly)
+		{
+			repos = repos.Where(x => x.Type == RepositoryType.Public);
+		}
+
+		var repoList = await repos.ToListAsync();
+
+		return this.mapper.Map<IEnumerable<RepositoryDto>>(repoList);
+	}
+
 	public async Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId)
 	{
 		var repos = await this.dbContext.Repositories
 			.Where(x => x.UserId == userId && !x.IsDeleted)
-			.ToListAsync();
-
-		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
-	}
-
-	public async Task<IEnumerable<RepositoryDto>> GetAllPublic()
-	{
-		var repos = await this.dbContext.Repositories
-			.Include(x => x.User)
-			.Where(x => x.Type == RepositoryType.Public && !x.IsDeleted)
 			.ToListAsync();
 
 		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
