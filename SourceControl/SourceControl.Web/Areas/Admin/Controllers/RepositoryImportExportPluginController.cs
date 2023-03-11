@@ -16,8 +16,28 @@ public class RepositoryImportExportPluginController : Controller
     // Make async/await
     public ActionResult Export()
     {
-        var file = this.excelImportExportService.ExportRepositories();
+        try
+        {
+			var file = this.excelImportExportService.ExportRepositories();
 
-        return File(file.ReadStream, "application/octet-stream", file.Name);
+			return File(file.ReadStream, "application/octet-stream", file.Name);
+		}
+        catch (Exception ex)
+        {
+            var vm = new ImportExportErrorViewModel
+            {
+                Message = ex.Message,
+                StackTrace = ex.StackTrace
+            };
+
+            return this.View("Error", vm);
+		}
+    }
+
+    [HttpPost]
+    public ActionResult Import(IFormFile file)
+    {
+
+        return this.View();
     }
 }
