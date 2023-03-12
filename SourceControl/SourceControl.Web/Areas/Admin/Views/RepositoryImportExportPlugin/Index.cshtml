@@ -10,6 +10,10 @@
 	</div>
 	<br />
 	<h2>II. Import Excel File To Generate Repositories</h2>
+	@if (ViewData[WebConstants.EmprtyFileKey] != null)
+	{
+		<h1 class="text-danger">@ViewData[WebConstants.EmprtyFileKey]</h1>
+	}
 </div>
 
 @section Scripts{

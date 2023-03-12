@@ -8,4 +8,6 @@ public static class WebConstants
     public const string AdminUserName = "Admin@abv.bg";
     public const string AdminEmail = "Admin@abv.bg";
     public const string AdminPassword = "admin123";
+
+	public const string EmprtyFileKey = "EmptyFile";
 }
