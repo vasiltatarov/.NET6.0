@@ -7,4 +7,6 @@ public interface IExcelImportExportService
     ExcelFile ExportRepositories();
 
     ExcelFile ExportRepositories(IEnumerable<RepositoryExportModel> models);
+
+    IEnumerable<T> Import<T>(Stream file);
 }

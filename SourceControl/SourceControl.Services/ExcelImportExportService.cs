@@ -30,6 +30,11 @@ public class ExcelImportExportService : IExcelImportExportService
 		return this.SaveRepositoriesToFile(models, $"{RepositoriesFileName}_{DateTime.Now.ToString("MM-dd-yyyy")}.xlsx");
 	}
 
+	public IEnumerable<T> Import<T>(Stream file)
+	{
+		return new ExcelMapper(file).Fetch<T>();
+	}
+
 	private ExcelFile SaveRepositoriesToFile(IEnumerable<RepositoryExportModel> models, string fileName)
     {
         var excelMapper = new ExcelMapper();

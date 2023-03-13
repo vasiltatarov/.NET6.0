@@ -5,6 +5,7 @@ using SourceControl.Data;
 using SourceControl.Data.Models;
 using SourceControl.Data.Models.Enumerations;
 using SourceControl.Models.Dtos;
+using SourceControl.Models.ImportExportModels;
 using SourceControl.Models.Repository;
 using SourceControl.Services.Interfaces;
 using System.Text.Json;
@@ -16,12 +17,14 @@ public class RepositoryService : IRepositoryService
 	private readonly ApplicationDbContext dbContext;
 	private readonly IMapper mapper;
 	private readonly ILogger<RepositoryService> logger;
+	private readonly IExcelImportExportService excelImportExportService;
 
-	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper, ILogger<RepositoryService> logger)
+	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper, ILogger<RepositoryService> logger, IExcelImportExportService excelImportExportService)
 	{
 		this.dbContext = dbContext;
 		this.mapper = mapper;
 		this.logger = logger;
+		this.excelImportExportService = excelImportExportService;
 	}
 
 	public async Task<bool> Create(CreateRepositoryViewModel model, string userId)
@@ -169,5 +172,12 @@ public class RepositoryService : IRepositoryService
 		this.dbContext.SaveChanges();
 
 		return true;
+	}
+
+	public void ImportRepositories(Stream fileStream)
+	{
+		var repos = this.excelImportExportService.Import<RepositoryImportModel>(fileStream);
+		;
+
 	}
 }

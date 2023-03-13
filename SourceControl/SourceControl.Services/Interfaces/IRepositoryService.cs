@@ -15,6 +15,8 @@ public interface IRepositoryService
 
 	bool Delete(int id);
 
+	void ImportRepositories(Stream fileStream);
+
 	Task<RepositoryDto> GetById(int id);
 
 	Task<RepositoryDto> GetByUserId(int repoId, string userId);
@@ -23,5 +25,5 @@ public interface IRepositoryService
 
 	Task<IEnumerable<RepositoryDto>> GetAll(bool publicOnly = true);
 
-    IEnumerable<RepositoryRow> GetAllRows();
+	IEnumerable<RepositoryRow> GetAllRows();
 }

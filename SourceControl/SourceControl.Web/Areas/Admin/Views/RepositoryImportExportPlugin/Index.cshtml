@@ -1,4 +1,5 @@
-﻿<div class="container">
+﻿<partial name="_Notification" />
+<div class="container">
 	<h1>Repositories Import/Export Plugin</h1>
 	<hr />
 	<h2>I. Generate Excel File With All Repositories</h2>
@@ -10,10 +11,21 @@
 	</div>
 	<br />
 	<h2>II. Import Excel File To Generate Repositories</h2>
-	@if (ViewData[WebConstants.EmprtyFileKey] != null)
-	{
-		<h1 class="text-danger">@ViewData[WebConstants.EmprtyFileKey]</h1>
-	}
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="bs-component">
+				<form asp-area="@WebConstants.AdminAreaName" asp-action="Import" asp-controller="RepositoryImportExportPlugin" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="formFile" class="form-label mt-4">Excel file input</label>
+						<input class="form-control" type="file" id="formFile" name="file">
+					</div>
+					<div class="form-group m-2">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 @section Scripts{
