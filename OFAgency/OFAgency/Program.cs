@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OFAgency.Data;
+using OFAgency.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +19,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 		options.Password.RequireLowercase = false;
 	})
 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
