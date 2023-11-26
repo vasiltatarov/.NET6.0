@@ -1,8 +1,5 @@
 ﻿namespace SourceControl.Web.Infrastructure;
 
-using SourceControl.Models.Dtos;
-using SourceControl.Models.Repository;
-
 public class MappingProfile : Profile
 {
     public MappingProfile()
@@ -15,5 +12,14 @@ public class MappingProfile : Profile
 
         CreateMap<Repository, RepositoryRow>()
             .ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
+
+        CreateMap<Issue, IssueDto>()
+			.ForMember(x => x.Status, x => x.MapFrom(y => y.IsOpen ? "Open" : "Closed"))
+			.ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToShortDateString()));
+
+		CreateMap<PullRequest, PullRequestDto>();
+
+		CreateMap<RepositoryDto, RepositoryExportModel>()
+			.ForMember(x => x.CreatedOn, x => x.MapFrom(y => y.CreatedOn.ToString("MM-dd-yyyy")));
     }
 }

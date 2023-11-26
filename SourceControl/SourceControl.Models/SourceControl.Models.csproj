@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExcelMapper" Version="5.2.483" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SourceControl.Data\SourceControl.Data.csproj" />
   </ItemGroup>
 

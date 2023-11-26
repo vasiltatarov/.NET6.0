@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MethodMeasure", "MethodMeasure\MethodMeasure.csproj", "{B1026C18-7327-4558-BB5E-0D9D20BA38ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1026C18-7327-4558-BB5E-0D9D20BA38ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1026C18-7327-4558-BB5E-0D9D20BA38ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1026C18-7327-4558-BB5E-0D9D20BA38ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1026C18-7327-4558-BB5E-0D9D20BA38ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F416D8B-9E7D-4396-A454-957241B29F22}
+	EndGlobalSection
+EndGlobal

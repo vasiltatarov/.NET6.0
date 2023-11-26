@@ -15,8 +15,7 @@ public class RepositoryController : Controller
         this.mapper = mapper;
     }
 
-    public IActionResult Index()
-        => View();
+    public IActionResult Index() => View();
 
     public async Task<IActionResult> Edit(int id)
     {

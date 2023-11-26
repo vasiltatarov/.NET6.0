@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SourceControl.Data;
 using SourceControl.Data.Models;
 using SourceControl.Data.Models.Enumerations;
 using SourceControl.Models.Dtos;
+using SourceControl.Models.ImportExportModels;
 using SourceControl.Models.Repository;
 using SourceControl.Services.Interfaces;
+using System.Text.Json;
 
 namespace SourceControl.Services;
 
@@ -13,17 +16,34 @@ public class RepositoryService : IRepositoryService
 {
 	private readonly ApplicationDbContext dbContext;
 	private readonly IMapper mapper;
+	private readonly ILogger<RepositoryService> logger;
+	private readonly IExcelImportExportService excelImportExportService;
 
-	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper)
+	public RepositoryService(ApplicationDbContext dbContext, IMapper mapper, ILogger<RepositoryService> logger, IExcelImportExportService excelImportExportService)
 	{
 		this.dbContext = dbContext;
 		this.mapper = mapper;
+		this.logger = logger;
+		this.excelImportExportService = excelImportExportService;
 	}
 
-	public async Task Create(Repository repo)
+	public async Task<bool> Create(CreateRepositoryViewModel model, string userId)
 	{
-		await this.dbContext.AddAsync(repo);
-		await this.dbContext.SaveChangesAsync();
+		try
+		{
+			var repo = this.mapper.Map<Repository>(model);
+			repo.UserId = userId;
+
+			await this.dbContext.AddAsync(repo);
+			await this.dbContext.SaveChangesAsync();
+
+			return true;
+		}
+		catch (Exception ex)
+		{
+			this.logger.LogError(ex, $"Method {nameof(Create)}, CreateRepositoryViewModel - {JsonSerializer.Serialize(model)}, userId - {userId}");
+			return false;
+		}
 	}
 
 	public async Task<RepositoryDto> GetById(int id)
@@ -53,20 +73,27 @@ public class RepositoryService : IRepositoryService
 		return this.mapper.Map<RepositoryDto>(repo);
 	}
 
+	public async Task<IEnumerable<RepositoryDto>> GetAll(bool publicOnly = true)
+	{
+		var repos = this.dbContext.Repositories
+			.Include(x => x.User)
+			.Where(x => !x.IsDeleted)
+			.AsQueryable();
+
+		if (publicOnly)
+		{
+			repos = repos.Where(x => x.Type == RepositoryType.Public);
+		}
+
+		var repoList = await repos.ToListAsync();
+
+		return this.mapper.Map<IEnumerable<RepositoryDto>>(repoList);
+	}
+
 	public async Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId)
 	{
 		var repos = await this.dbContext.Repositories
 			.Where(x => x.UserId == userId && !x.IsDeleted)
-			.ToListAsync();
-
-		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
-	}
-
-	public async Task<IEnumerable<RepositoryDto>> GetAllPublic()
-	{
-		var repos = await this.dbContext.Repositories
-			.Include(x => x.User)
-			.Where(x => x.Type == RepositoryType.Public && !x.IsDeleted)
 			.ToListAsync();
 
 		return this.mapper.Map<IEnumerable<RepositoryDto>>(repos);
@@ -145,5 +172,12 @@ public class RepositoryService : IRepositoryService
 		this.dbContext.SaveChanges();
 
 		return true;
+	}
+
+	public void ImportRepositories(Stream fileStream)
+	{
+		var repos = this.excelImportExportService.Import<RepositoryImportModel>(fileStream);
+		;
+
 	}
 }

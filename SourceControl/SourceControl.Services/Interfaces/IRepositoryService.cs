@@ -1,12 +1,11 @@
-﻿using SourceControl.Data.Models;
-using SourceControl.Models.Dtos;
+﻿using SourceControl.Models.Dtos;
 using SourceControl.Models.Repository;
 
 namespace SourceControl.Services.Interfaces;
 
 public interface IRepositoryService
 {
-	Task Create(Repository repo);
+	Task<bool> Create(CreateRepositoryViewModel repo, string userId);
 
 	Task Edit(EditRepositoryViewModel editModel, string userId);
 
@@ -16,13 +15,15 @@ public interface IRepositoryService
 
 	bool Delete(int id);
 
+	void ImportRepositories(Stream fileStream);
+
 	Task<RepositoryDto> GetById(int id);
 
 	Task<RepositoryDto> GetByUserId(int repoId, string userId);
 
 	Task<IEnumerable<RepositoryDto>> GetAllByUser(string userId);
 
-	Task<IEnumerable<RepositoryDto>> GetAllPublic();
+	Task<IEnumerable<RepositoryDto>> GetAll(bool publicOnly = true);
 
-    IEnumerable<RepositoryRow> GetAllRows();
+	IEnumerable<RepositoryRow> GetAllRows();
 }

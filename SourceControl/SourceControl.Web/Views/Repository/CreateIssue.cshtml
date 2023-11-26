@@ -1,0 +1,26 @@
+﻿@model CreateIssueViewModel
+
+<form asp-controller="Repository" asp-action="CreateIssue" method="post">
+	<fieldset>
+		<legend>Create New Issue</legend>
+		<input type="hidden" asp-for="@Model.RepositoryId" />
+		<div class="form-group">
+			<label asp-for="@Model.Title" class="form-label mt-4">Title</label>
+			<input asp-for="@Model.Title" class="form-control" placeholder="Enter Title">
+			<span asp-validation-for="@Model.Title" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="@Model.Comment" class="form-label mt-4">Comment</label>
+			<textarea asp-for="@Model.Comment" class="form-control" rows="3" placeholder="Enter Comment"></textarea>
+			<span asp-validation-for="@Model.Comment" class="text-danger"></span>
+		</div>
+		<br />
+		<hr />
+		<button type="submit" class="btn btn-primary">Create</button>
+		<a asp-controller="Repository" asp-action="DetailsPage" asp-route-id="@Model.RepositoryId" asp-route-tab="issues" class="btn btn-info">Cancel</a>
+	</fieldset>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
